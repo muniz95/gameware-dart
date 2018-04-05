@@ -1,4 +1,4 @@
-package com.example.gameware;
+package com.muniz95.gameware;
 
 import android.os.Bundle;
 

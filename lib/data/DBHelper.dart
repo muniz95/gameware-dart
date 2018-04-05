@@ -28,7 +28,6 @@ class DatabaseHelper {
     return theDb;
   }
   
-
   void _onCreate(Database db, int version) async {
     // When creating the db, create the table
     await db.execute(

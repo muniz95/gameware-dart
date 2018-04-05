@@ -11,6 +11,8 @@ dependencies:
   http: any
   sqflite: '^0.8.6'
   path_provider: any
+  redux: ^2.0.2
+  flutter_redux: ^0.3.2
 
 dev_dependencies:
   flutter_test:
@@ -58,3 +60,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies, 
   # see https://flutter.io/custom-fonts/#from-packages
+  assets:
+    - assets/login_background.jpg

@@ -12,7 +12,7 @@ class User {
   String get password => _password;
 
   Map<String, dynamic> toMap() {
-    var map = new Map<String, dynamic>();
+    Map<String, dynamic> map = new Map<String, dynamic>();
     map["username"] = _username;
     map["password"] = _password;
 
