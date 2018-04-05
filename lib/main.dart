@@ -5,6 +5,7 @@ import 'package:gameware/redux/state.dart';
 import 'package:gameware/redux/reducers/user_reducer.dart';
 import 'package:gameware/redux/middlewares/user_middleware.dart';
 import 'package:gameware/routes.dart';
+import 'package:redux_epics/redux_epics.dart';
 
 void main() => runApp(new GamewareApp());
 
@@ -12,7 +13,7 @@ class GamewareApp extends StatelessWidget {
   final store = new Store<AppState>(
     appStateReducer,
     initialState: new AppState(),
-    middleware: createStoreTodosMiddleware(),
+    middleware: [new EpicMiddleware(allEpics)],
   );
   // This widget is the root of your application.
   @override
