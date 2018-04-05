@@ -13,6 +13,8 @@ dependencies:
   path_provider: any
   redux: ^2.0.2
   flutter_redux: ^0.3.2
+  redux_epics: "^0.8.0"
+  rxdart: "^0.16.0+1"
 
 dev_dependencies:
   flutter_test:

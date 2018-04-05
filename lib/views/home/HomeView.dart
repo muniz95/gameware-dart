@@ -9,7 +9,7 @@ class HomeView extends StatelessWidget {
     // await db.saveUser(user);
     var authStateProvider = new AuthStateProvider();
     authStateProvider.notify(AuthState.LOGGED_OUT);
-    Navigator.of(_ctx).pop();
+    Navigator.of(_ctx).pushReplacementNamed("/");
   }
 
   @override
