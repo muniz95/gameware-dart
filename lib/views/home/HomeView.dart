@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gameware/auth.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new HomeViewState();
+}
+
+class HomeViewState extends State<HomeView> {
   BuildContext _ctx;
 
   _logout() async {

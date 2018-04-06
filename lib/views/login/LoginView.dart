@@ -47,8 +47,9 @@ class LoginViewState extends State<LoginView>
   @override
   onAuthStateChanged(AuthState state) {
    
-    if(state == AuthState.LOGGED_IN)
-      Navigator.of(_ctx).pushReplacementNamed("/home");
+   print('Altered state');
+    // if(state == AuthState.LOGGED_IN)
+    //   Navigator.of(_ctx).pushReplacementNamed("/home");
   }
 
   @override
@@ -74,8 +75,8 @@ class LoginViewState extends State<LoginView>
                 child: new TextFormField(
                   onSaved: (val) => _username = val,
                   validator: (val) {
-                    return val.length < 10
-                        ? "Username must have atleast 10 chars"
+                    return val.length < 1
+                        ? "Username must have atleast 1 chars"
                         : null;
                   },
                   decoration: new InputDecoration(labelText: "Username"),
@@ -135,8 +136,14 @@ class LoginViewState extends State<LoginView>
     _showSnackBar(user.toString());
     setState(() => _isLoading = false);
     var db = new DatabaseHelper();
-    await db.saveUser(user);
-    var authStateProvider = new AuthStateProvider();
-    authStateProvider.notify(AuthState.LOGGED_IN);
+    db.saveUser(user)
+    .then((res) {
+      var authStateProvider = new AuthStateProvider();
+      authStateProvider.notify(AuthState.LOGGED_IN);
+      Navigator.of(_ctx).pushReplacementNamed("/home");
+    })
+    .catchError((err) {
+      _showSnackBar('Error: $err');
+    });
   }
 }
