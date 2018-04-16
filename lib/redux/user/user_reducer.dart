@@ -4,9 +4,14 @@ import 'package:gameware/redux/user/user_state.dart';
 import 'package:redux/redux.dart';
 
 final userReducer = combineReducers<UserState>([
+  new TypedReducer<UserState, UserLoginAction>(_settingLoggedUser),
   new TypedReducer<UserState, SettingUserAction>(_settingUser),
   new TypedReducer<UserState, ErrorSettingUserAction>(_errorSettingUser),
 ]);
+
+UserState _settingLoggedUser(UserState state, UserLoginAction action) {
+  return state.copyWith(user: action.user);
+}
 
 UserState _settingUser(UserState state, SettingUserAction action) {
   return state.copyWith(user: action.user);

@@ -1,18 +1,21 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gameware/data/DBHelper.dart';
 import 'package:gameware/models/User.dart';
+import 'package:gameware/redux/app/app_state.dart';
 
-import '../../auth.dart';
+import 'package:gameware/auth.dart';
+import '../../redux/user/user_actions.dart';
 import 'LoginPresenter.dart';
 
 class LoginView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new LoginViewState();
+  State<StatefulWidget> createState() => new _LoginViewState();
 }
 
-class LoginViewState extends State<LoginView>
+class _LoginViewState extends State<LoginView>
     implements LoginContract, AuthStateListener {
   BuildContext _ctx;
 
@@ -23,7 +26,7 @@ class LoginViewState extends State<LoginView>
 
   LoginPresenter _presenter;
 
-  LoginViewState() {
+  _LoginViewState() {
     _presenter = new LoginPresenter(this);
     var authStateProvider = new AuthStateProvider();
     authStateProvider.subscribe(this);
@@ -145,5 +148,7 @@ class LoginViewState extends State<LoginView>
     .catchError((err) {
       _showSnackBar('Error: $err');
     });
+    var store = StoreProvider.of<AppState>(context);
+    store.dispatch(new UserLoginAction(user));
   }
 }
