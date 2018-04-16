@@ -28,7 +28,7 @@ packages:
       name: barback
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.2+14"
+    version: "0.15.2+15"
   boolean_selector:
     dependency: transitive
     description:
@@ -96,7 +96,7 @@ packages:
       name: flutter_redux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.6"
+    version: "0.5.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -200,13 +200,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6"
-  mockito:
-    dependency: transitive
-    description:
-      name: mockito
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.3"
   multi_server_socket:
     dependency: transitive
     description:
@@ -283,21 +276,7 @@ packages:
       name: redux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
-  redux_epics:
-    dependency: "direct main"
-    description:
-      name: redux_epics
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
-  rxdart:
-    dependency: "direct main"
-    description:
-      name: rxdart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.16.6"
+    version: "3.0.0"
   shelf:
     dependency: transitive
     description:
@@ -400,7 +379,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.32+1"
+    version: "0.12.32+2"
   typed_data:
     dependency: transitive
     description:
