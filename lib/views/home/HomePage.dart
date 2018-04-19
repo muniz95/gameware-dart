@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gameware/redux/app/app_state.dart';
 
 import 'package:gameware/views/home/HomeViewModel.dart';
+import 'package:gameware/widgets/Drawer.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -34,6 +35,7 @@ class HomePageContent extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("${viewModel.user.username}"),
       ),
+      drawer: buildDrawer(context),
       body: new Center(
         child: new Text("Welcome home, ${viewModel.user.name}!"),
       ),
