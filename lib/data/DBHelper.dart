@@ -31,7 +31,7 @@ class DatabaseHelper {
   void _onCreate(Database db, int version) async {
     // When creating the db, create the table
     await db.execute(
-    "CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
+    "CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT, email TEXT, username TEXT, password TEXT)");
     print("Created tables");
   }
 
@@ -47,10 +47,17 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<bool> isLoggedIn() async {
+  Future<User> isLoggedIn(String username, String password) async {
     var dbClient = await db;
-    var res = await dbClient.query("User");
-    return res.length > 0? true: false;
+    List<Map> userRaw = await dbClient.rawQuery(
+      "SELECT * FROM User WHERE username = '$username' AND password = '$password'"
+    );
+    
+    if (userRaw.length > 0) {
+      return new User.map(userRaw[0]);
+    }
+
+    return null;
   }
 
 }

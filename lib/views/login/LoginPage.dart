@@ -1,22 +1,19 @@
-import 'dart:ui';
+import 'dart:ui' as DartUI;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gameware/data/DBHelper.dart';
-import 'package:gameware/models/User.dart';
 import 'package:gameware/redux/app/app_state.dart';
 
-import 'package:gameware/auth.dart';
-import '../../redux/user/user_actions.dart';
-import 'LoginPresenter.dart';
+import 'package:gameware/redux/user/user_actions.dart';
 
-class LoginView extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _LoginViewState();
+  State<StatefulWidget> createState() => new _LoginPageState();
 }
 
-class _LoginViewState extends State<LoginView>
-    implements LoginContract, AuthStateListener {
+class _LoginPageState extends State<LoginPage> {
   BuildContext _ctx;
 
   bool _isLoading = false;
@@ -24,21 +21,30 @@ class _LoginViewState extends State<LoginView>
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   String _username, _password;
 
-  LoginPresenter _presenter;
-
-  _LoginViewState() {
-    _presenter = new LoginPresenter(this);
-    var authStateProvider = new AuthStateProvider();
-    authStateProvider.subscribe(this);
-  }
+  _LoginPageState();
 
   void _submit() {
     final form = formKey.currentState;
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    setState(() => _isLoading = true);
 
     if (form.validate()) {
-      setState(() => _isLoading = true);
       form.save();
-      _presenter.doLogin(_username, _password);
+      setState(() => _isLoading = false);
+      var db = new DatabaseHelper();
+      db.isLoggedIn(_username, _password)
+      .then((loggedUser) {
+        if (loggedUser != null) {
+          var store = StoreProvider.of<AppState>(context);
+          store.dispatch(new UserLoginAction(loggedUser));
+          Navigator.of(_ctx).pushReplacementNamed("/home");
+        } else {
+          _showSnackBar('Usuário ou senha incorretos!');
+        }
+      })
+      .catchError((err) {
+        _showSnackBar('Error: $err');
+      });
     }
   }
 
@@ -48,25 +54,24 @@ class _LoginViewState extends State<LoginView>
   }
 
   @override
-  onAuthStateChanged(AuthState state) {
-   
-   print('Altered state');
-    // if(state == AuthState.LOGGED_IN)
-    //   Navigator.of(_ctx).pushReplacementNamed("/home");
-  }
-
-  @override
   Widget build(BuildContext context) {
     _ctx = context;
-    var loginBtn = new RaisedButton(
+    RaisedButton loginBtn = new RaisedButton(
       onPressed: _submit,
-      child: new Text("LOGIN"),
+      child: new Text("Login", style: const TextStyle(color: Colors.black),),
+      color: Colors.primaries[0],
+    );
+    RaisedButton signupBtn = new RaisedButton(
+      onPressed: () {
+        Navigator.of(_ctx).pushNamed("/signup");        
+      },
+      child: new Text("Registrar", style: const TextStyle(color: Colors.black),),
       color: Colors.primaries[0],
     );
     var loginForm = new Column(
       children: <Widget>[
         new Text(
-          "Login App",
+          "Gameware",
           textScaleFactor: 2.0,
         ),
         new Form(
@@ -96,7 +101,15 @@ class _LoginViewState extends State<LoginView>
             ],
           ),
         ),
-        _isLoading ? new CircularProgressIndicator() : loginBtn
+        new ButtonTheme.bar(
+          child: new ButtonBar(
+            children: <Widget>[
+              _isLoading ? new CircularProgressIndicator() : loginBtn,
+              signupBtn,
+            ],
+            alignment: MainAxisAlignment.center,
+          ),
+        ),
       ],
       crossAxisAlignment: CrossAxisAlignment.center,
     );
@@ -113,42 +126,18 @@ class _LoginViewState extends State<LoginView>
         child: new Center(
           child: new ClipRect(
             child: new BackdropFilter(
-              filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              filter: new DartUI.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
               child: new Container(
                 child: loginForm,
                 height: 300.0,
                 width: 300.0,
                 decoration: new BoxDecoration(
-                    color: Colors.grey.shade200.withOpacity(0.5)),
+                    color: Colors.grey.shade200.withOpacity(0.2)),
               ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void onLoginError(String errorTxt) {
-    _showSnackBar(errorTxt);
-    setState(() => _isLoading = false);
-  }
-
-  @override
-  void onLoginSuccess(User user) async {
-    _showSnackBar(user.toString());
-    setState(() => _isLoading = false);
-    var db = new DatabaseHelper();
-    db.saveUser(user)
-    .then((res) {
-      var authStateProvider = new AuthStateProvider();
-      authStateProvider.notify(AuthState.LOGGED_IN);
-      Navigator.of(_ctx).pushReplacementNamed("/home");
-    })
-    .catchError((err) {
-      _showSnackBar('Error: $err');
-    });
-    var store = StoreProvider.of<AppState>(context);
-    store.dispatch(new UserLoginAction(user));
   }
 }

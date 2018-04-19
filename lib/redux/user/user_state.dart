@@ -11,7 +11,7 @@ class UserState {
 
   factory UserState.initial() {
     return new UserState(
-      user: new User('', ''),
+      user: new User(),
     );
   }
 

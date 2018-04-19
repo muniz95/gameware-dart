@@ -5,8 +5,8 @@ import 'package:gameware/redux/user/user_selectors.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
-class HomePresenter {
-  HomePresenter({
+class HomeViewModel {
+  HomeViewModel({
     @required this.user,
     @required this.logout,
   });
@@ -14,8 +14,8 @@ class HomePresenter {
   final User user;
   final Function logout;
 
-  static HomePresenter fromStore(Store<AppState> store) {
-    return new HomePresenter(
+  static HomeViewModel fromStore(Store<AppState> store) {
+    return new HomeViewModel(
       user: userSelector(store.state),
       logout: () => store.dispatch(new UserLogoutAction()),
     );
@@ -24,7 +24,7 @@ class HomePresenter {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is HomePresenter &&
+          other is HomeViewModel &&
               runtimeType == other.runtimeType &&
               user == other.user &&
               logout == other.logout;

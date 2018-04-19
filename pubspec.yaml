@@ -62,3 +62,4 @@ flutter:
   # see https://flutter.io/custom-fonts/#from-packages
   assets:
     - assets/login_background.jpg
+    - assets/signup_background.jpg

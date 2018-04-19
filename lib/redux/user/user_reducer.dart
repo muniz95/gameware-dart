@@ -18,5 +18,5 @@ UserState _settingUser(UserState state, SettingUserAction action) {
 }
 
 UserState _errorSettingUser(UserState state, ErrorSettingUserAction action) {
-  return state.copyWith(user: new User('', ''));
+  return state.copyWith(user: new User());
 }
