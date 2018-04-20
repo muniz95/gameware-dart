@@ -20,11 +20,11 @@ class AppState {
 
   AppState copyWith({
     UserState userState,
-    ProductState productState
+    ProductState productState,
   }) {
     return new AppState(
       userState: userState,
-      productState: productState
+      productState: productState,
     );
   }
 

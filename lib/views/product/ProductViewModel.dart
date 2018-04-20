@@ -1,23 +1,25 @@
-import 'package:gameware/models/User.dart';
+import 'package:gameware/models/Product.dart';
 import 'package:gameware/redux/app/AppState.dart';
-import 'package:gameware/redux/user/UserActions.dart';
-import 'package:gameware/redux/user/UserSelectors.dart';
+import 'package:gameware/redux/product/ProductActions.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 
 class ProductViewModel {
   ProductViewModel({
-    @required this.user,
-    @required this.logout,
+    @required this.currentProduct,
+    @required this.products,
+    @required this.setCurrentProduct,
   });
 
-  final User user;
-  final Function logout;
+  final Product currentProduct;
+  final List<Product> products;
+  final Function setCurrentProduct;
 
   static ProductViewModel fromStore(Store<AppState> store) {
     return new ProductViewModel(
-      user: userSelector(store.state),
-      logout: () => store.dispatch(new UserLogoutAction()),
+      currentProduct: store.state.productState.product,
+      products: store.state.productState.products,
+      setCurrentProduct: (product) => store.dispatch(new SetCurrentProduct(product)),
     );
   }
 
@@ -26,11 +28,13 @@ class ProductViewModel {
       identical(this, other) ||
           other is ProductViewModel &&
               runtimeType == other.runtimeType &&
-              user == other.user &&
-              logout == other.logout;
+              currentProduct == other.currentProduct &&
+              products == other.products &&
+              setCurrentProduct == other.setCurrentProduct;
 
   @override
   int get hashCode =>
-      user.hashCode ^
-      logout.hashCode;
+      currentProduct.hashCode ^
+      products.hashCode ^
+      setCurrentProduct.hashCode;
 }

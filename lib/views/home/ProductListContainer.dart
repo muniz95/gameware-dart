@@ -11,7 +11,7 @@ class ProductListContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       child: new Center(
-        child: new Text("Welcome home, ${viewModel.user.name}!"),
+        child: new Text("Welcome home, ${viewModel.currentProduct.name}!"),
       ),
     );
   }
