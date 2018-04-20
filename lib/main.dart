@@ -34,7 +34,7 @@ class _GamewareAppState extends State<GamewareApp> {
     return new StoreProvider<AppState>(
       store: widget.store,
       child: new MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Gameware',
         theme: new ThemeData(
           primaryColor: const Color(0XFF4F43AE),
         ),
