@@ -7,6 +7,7 @@ final userReducer = combineReducers<UserState>([
   new TypedReducer<UserState, UserLoginAction>(_settingLoggedUser),
   new TypedReducer<UserState, SettingUserAction>(_settingUser),
   new TypedReducer<UserState, ErrorSettingUserAction>(_errorSettingUser),
+  new TypedReducer<UserState, UserLogoutAction>(_unsettingUser),
 ]);
 
 UserState _settingLoggedUser(UserState state, UserLoginAction action) {
@@ -19,4 +20,8 @@ UserState _settingUser(UserState state, SettingUserAction action) {
 
 UserState _errorSettingUser(UserState state, ErrorSettingUserAction action) {
   return state.copyWith(user: new User());
+}
+
+UserState _unsettingUser(UserState state, UserLogoutAction action) {
+  return state.copyWith(user: null);
 }

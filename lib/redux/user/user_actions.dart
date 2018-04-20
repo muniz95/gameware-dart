@@ -9,7 +9,7 @@ class UserLoginAction {
 class UserLogoutAction {}
 
 class SettingUserAction {
-  SettingUserAction({this.user});
+  SettingUserAction(this.user);
 
   final User user;
 }

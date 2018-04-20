@@ -36,7 +36,7 @@ class _GamewareAppState extends State<GamewareApp> {
       child: new MaterialApp(
         title: 'Flutter Demo',
         theme: new ThemeData(
-          primarySwatch: Colors.teal,
+          primaryColor: const Color(0XFF4F43AE),
         ),
         routes: routes,
       )

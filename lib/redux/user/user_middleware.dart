@@ -7,19 +7,23 @@ import 'package:redux/redux.dart';
 class UserMiddleware extends MiddlewareClass<AppState> {
   @override
   Future<Null> call(Store<AppState> store, action, NextDispatcher next) async {
-    next(action);
+    // next(action);
 
-    if(
-      action is SettingUserAction ||
-      action is UserLoginAction ||
-      action is ErrorSettingUserAction
-    ) {
-      await _handleUserSet(store, action, next);
+    if(action is SettingUserAction) {
+      next(new SettingUserAction(action.user));
     }
-  }
 
-  Future<Null> _handleUserSet(Store<AppState> store, action, NextDispatcher next) async {
-    next(new SettingUserAction(user: action));
+    if(action is UserLoginAction) {
+      next(new UserLoginAction(action.user));
+    }
+
+    if(action is ErrorSettingUserAction) {
+      next(new ErrorSettingUserAction());
+    }
+
+    if(action is UserLogoutAction) {
+      next(new UserLogoutAction());
+    }
   }
 
 }

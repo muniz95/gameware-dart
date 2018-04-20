@@ -12,13 +12,15 @@ Widget buildDrawer(BuildContext context) {
         ),
         const ListTile(
           leading: const Icon(Icons.account_balance),
-          title: const Text('Account Balance'),
+          title: const Text('aoiej'),
           enabled: false,
         ),
         new ListTile(
           leading: const Icon(Icons.dvr),
-          title: const Text('Dump App to Console'),
-          onTap: () {},
+          title: const Text('Produto'),
+          onTap: () {
+            Navigator.of(context).pushNamed("/product");
+          },
         ),
         const Divider(),
         new ListTile(
