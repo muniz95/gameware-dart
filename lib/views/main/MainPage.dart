@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gameware/widgets/Drawer.dart';
-import '../product/ProductContainer.dart';
-import 'HomeContainer.dart';
+import 'package:gameware/views/product/ProductContainer.dart';
+import 'package:gameware/views/home/HomeContainer.dart';
 
-class HomePage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new HomePageState();
+  State<StatefulWidget> createState() => new MainPageState();
 }
 
-class HomePageState extends State<HomePage> {
+class MainPageState extends State<MainPage> {
 
   PageController _pageController;
   int _page = 0;
