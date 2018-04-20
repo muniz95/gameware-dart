@@ -1,5 +1,5 @@
-import 'package:gameware/redux/app/app_state.dart';
-import 'package:gameware/redux/user/user_reducer.dart';
+import 'package:gameware/redux/app/AppState.dart';
+import 'package:gameware/redux/user/UserReducer.dart';
 
 AppState appReducer(AppState state, dynamic action) {
   return new AppState(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:gameware/redux/app/app_state.dart';
-import 'package:gameware/redux/user/user_actions.dart';
+import 'package:gameware/redux/app/AppState.dart';
+import 'package:gameware/redux/user/UserActions.dart';
 import 'package:redux/redux.dart';
 
 class UserMiddleware extends MiddlewareClass<AppState> {

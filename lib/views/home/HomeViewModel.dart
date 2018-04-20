@@ -1,7 +1,7 @@
 import 'package:gameware/models/User.dart';
-import 'package:gameware/redux/app/app_state.dart';
-import 'package:gameware/redux/user/user_actions.dart';
-import 'package:gameware/redux/user/user_selectors.dart';
+import 'package:gameware/redux/app/AppState.dart';
+import 'package:gameware/redux/user/UserActions.dart';
+import 'package:gameware/redux/user/UserSelectors.dart';
 import 'package:meta/meta.dart';
 import 'package:redux/redux.dart';
 

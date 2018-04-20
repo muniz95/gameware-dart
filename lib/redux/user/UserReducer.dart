@@ -1,6 +1,6 @@
 import 'package:gameware/models/User.dart';
-import 'package:gameware/redux/user/user_actions.dart';
-import 'package:gameware/redux/user/user_state.dart';
+import 'package:gameware/redux/user/UserActions.dart';
+import 'package:gameware/redux/user/UserState.dart';
 import 'package:redux/redux.dart';
 
 final userReducer = combineReducers<UserState>([

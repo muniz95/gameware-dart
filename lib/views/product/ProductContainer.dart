@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:gameware/redux/app/app_state.dart';
+import 'package:gameware/redux/app/AppState.dart';
 
 import 'package:gameware/views/product/ProductViewModel.dart';
 

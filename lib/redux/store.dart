@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:gameware/redux/app/app_state.dart';
-import 'package:gameware/redux/app/app_reducer.dart';
-import 'package:gameware/redux/user/user_middleware.dart';
+import 'package:gameware/redux/app/AppState.dart';
+import 'package:gameware/redux/app/AppReducer.dart';
+import 'package:gameware/redux/user/UserMiddleware.dart';
 import 'package:redux/redux.dart';
 
 Future<Store<AppState>> createStore() async {

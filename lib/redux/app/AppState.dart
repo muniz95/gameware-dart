@@ -1,4 +1,4 @@
-import 'package:gameware/redux/user/user_state.dart';
+import 'package:gameware/redux/user/UserState.dart';
 import 'package:meta/meta.dart';
 
 class AppState {

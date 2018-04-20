@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gameware/data/DBHelper.dart';
 import 'package:gameware/models/User.dart';
-import 'package:gameware/redux/app/app_state.dart';
-import 'package:gameware/redux/user/user_actions.dart';
+import 'package:gameware/redux/app/AppState.dart';
+import 'package:gameware/redux/user/UserActions.dart';
 
 class SignupPage extends StatefulWidget {
   @override
