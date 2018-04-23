@@ -6,6 +6,12 @@ class AddProductToList {
   final Product product;
 }
 
+class LoadProductList {
+  LoadProductList(this.products);
+
+  final List<Product> products;
+}
+
 class RemoveProductFromList {
   RemoveProductFromList(this.product);
 

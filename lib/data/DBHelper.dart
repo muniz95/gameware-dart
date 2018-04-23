@@ -86,6 +86,20 @@ class DatabaseHelper {
     return res;
   }
 
+  Future<List<Product>> getProducts() async {
+    var dbClient = await db;
+    List<Product> products = new List<Product>();
+    List<Map> productRaw = await dbClient.query("Product");
+    
+    if (productRaw.length > 0) {
+      productRaw.forEach((product) {
+        products.add(new Product.map(product));
+      });
+    }
+
+    return products;
+  }
+
   Future<User> isLoggedIn(String username, String password) async {
     var dbClient = await db;
     List<Map> userRaw = await dbClient.rawQuery(
