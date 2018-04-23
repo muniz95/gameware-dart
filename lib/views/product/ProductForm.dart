@@ -5,24 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gameware/data/DBHelper.dart';
-import 'package:gameware/models/User.dart';
+import 'package:gameware/models/Product.dart';
 import 'package:gameware/redux/app/AppState.dart';
-import 'package:gameware/redux/user/UserActions.dart';
+import 'package:gameware/redux/product/ProductActions.dart';
 
-class SignupPage extends StatefulWidget {
+class ProductForm extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _SignupPageState();
+  State<StatefulWidget> createState() => new _ProductFormState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _ProductFormState extends State<ProductForm> {
   BuildContext _ctx;
 
   bool _isLoading = false;
   final formKey = new GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
-  String _name, _email, _username, _password;
+  String _name, _code;
+  int _quantity;
+  ProductCategory _category;
 
-  _SignupPageState();
+  _ProductFormState();
 
   void _submit() {
     final form = formKey.currentState;
@@ -30,17 +32,20 @@ class _SignupPageState extends State<SignupPage> {
 
     if (form.validate()) {
       form.save();
-      User user = new User(
-        name: _name, email: _email, username: _username, password: _password
+      Product product = new Product(
+        name: _name,
+        quantity: _quantity,
+        category: _category,
+        code: _code
       );
 
       setState(() => _isLoading = false);
       var db = new DatabaseHelper();
-      db.saveUser(user)
+      db.saveProduct(product)
       .then((res) {
         var store = StoreProvider.of<AppState>(context);
-        store.dispatch(new UserLoginAction(user));
-        _showSnackBar('Usuário cadastrado com sucesso!');
+        store.dispatch(new AddProductToList(product));
+        _showSnackBar('Produto cadastrado com sucesso!');
         new Future.delayed(new Duration(seconds: 3)).then((_) {
           Navigator.of(_ctx).pop("/home");
         });
@@ -61,8 +66,7 @@ class _SignupPageState extends State<SignupPage> {
     _ctx = context;
     var loginBtn = new RaisedButton(
       onPressed: _submit,
-      child: new Text("LOGIN"),
-      color: Colors.primaries[0],
+      child: new Text("Salvar"),
     );
     var loginForm = new Column(
       children: <Widget>[
@@ -83,29 +87,22 @@ class _SignupPageState extends State<SignupPage> {
                         ? "Name must have atleast 1 chars"
                         : null;
                   },
-                  decoration: new InputDecoration(labelText: "Name"),
+                  decoration: new InputDecoration(labelText: "Nome"),
                 ),
               ),
               new Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  onSaved: (val) => _email = val,
-                  decoration: new InputDecoration(labelText: "Email"),
-                ),
-              ),
-              new Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new TextFormField(
-                  onSaved: (val) => _username = val,
-                  decoration: new InputDecoration(labelText: "Username"),
+                  keyboardType: TextInputType.number,
+                  onSaved: (val) => _quantity = int.parse(val),
+                  decoration: new InputDecoration(labelText: "Quantidade"),
                 ),
               ),
               new Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new TextFormField(
                   obscureText: true,
-                  onSaved: (val) => _password = val,
+                  onSaved: (val) => _code = val,
                   decoration: new InputDecoration(labelText: "Password"),
                 ),
               ),
@@ -118,14 +115,9 @@ class _SignupPageState extends State<SignupPage> {
     );
 
     return new Scaffold(
-      appBar: null,
+      appBar: new AppBar(),
       key: scaffoldKey,
       body: new Container(
-        decoration: new BoxDecoration(
-          image: new DecorationImage(
-              image: new AssetImage("assets/signup_background.jpg"),
-              fit: BoxFit.cover),
-        ),
         child: new Center(
           child: new ClipRect(
             child: new BackdropFilter(

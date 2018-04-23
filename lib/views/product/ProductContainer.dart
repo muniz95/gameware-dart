@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gameware/redux/app/AppState.dart';
+import 'package:gameware/views/product/ProductForm.dart';
 
 import 'package:gameware/views/product/ProductViewModel.dart';
 
@@ -23,9 +24,19 @@ class ProductContainerContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: new Center(
-        child: new Text("Total de produtos cadastrados: ${viewModel.products.length}!"),
+    return new Scaffold(
+      body: new Container(
+        child: new Center(
+          child: new Text("Total de produtos cadastrados: ${viewModel.products.length}!"),
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        child: new Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).push(new MaterialPageRoute(
+            builder: (context) => new ProductForm()
+          ));
+        },
       ),
     );
   }

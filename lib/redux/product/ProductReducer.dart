@@ -13,7 +13,9 @@ final productReducer = combineReducers<ProductState>([
 ]);
 
 ProductState _addProductToList(ProductState state, AddProductToList action) {
-  return state.copyWith(product: action.product);
+  List<Product> products = state.products;
+  products.add(action.product);
+  return state.copyWith(products: products);
 }
 
 ProductState _removeProductFromList(ProductState state, RemoveProductFromList action) {
