@@ -101,9 +101,8 @@ class _ProductFormState extends State<ProductForm> {
               new Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: new TextFormField(
-                  obscureText: true,
                   onSaved: (val) => _code = val,
-                  decoration: new InputDecoration(labelText: "Password"),
+                  decoration: new InputDecoration(labelText: "Cód; produto"),
                 ),
               ),
             ],
