@@ -32,18 +32,19 @@ class _ProductFormState extends State<ProductForm> {
 
     if (form.validate()) {
       form.save();
+      var store = StoreProvider.of<AppState>(context);
       Product product = new Product(
         name: _name,
         quantity: _quantity,
         category: _category,
-        code: _code
+        code: _code,
+        user: store.state.userState.user,
       );
 
       setState(() => _isLoading = false);
       var db = new DatabaseHelper();
       db.saveProduct(product)
       .then((res) {
-        var store = StoreProvider.of<AppState>(context);
         store.dispatch(new AddProductToList(product));
         _showSnackBar('Produto cadastrado com sucesso!');
         new Future.delayed(new Duration(seconds: 3)).then((_) {
@@ -58,7 +59,7 @@ class _ProductFormState extends State<ProductForm> {
 
   void _showSnackBar(String text) {
     scaffoldKey.currentState
-        .showSnackBar(new SnackBar(content: new Text(text)));
+      .showSnackBar(new SnackBar(content: new Text(text)));
   }
 
   @override

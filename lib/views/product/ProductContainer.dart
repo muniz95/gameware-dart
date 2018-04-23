@@ -26,9 +26,23 @@ class ProductContainerContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Container(
-        child: new Center(
-          child: new Text("Total de produtos cadastrados: ${viewModel.products.length}!"),
-        ),
+        child: new ListView.builder(
+          itemCount: viewModel.products.length,
+          itemBuilder: (BuildContext context, int index) {
+            var product = viewModel.products[index];
+
+            return new Column(
+              children: <Widget>[
+                new Text(product.name),
+                new Text(product.quantity.toString()),
+                new Divider(
+                  height: 1.0,
+                  color: Colors.black,
+                ),
+              ],
+            );
+          },
+        )
       ),
       floatingActionButton: new FloatingActionButton(
         child: new Icon(Icons.add),

@@ -21,6 +21,12 @@ class Product {
       quantity: obj["quantity"],
       category: obj["category"],
       code: obj["code"],
+      user: new User(
+        id: obj['user.id'],
+        name: obj['user.name'],
+        email: obj['user.email'],
+        username: obj['user.username'],
+      ),
     );
   }
 
@@ -30,6 +36,7 @@ class Product {
     map["quantity"] = quantity;
     map["category"] = category;
     map["code"] = code;
+    map['userId'] = user.id;
 
     return map;
   }
