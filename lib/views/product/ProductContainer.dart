@@ -26,19 +26,45 @@ class ProductContainerContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Container(
+        margin: const EdgeInsets.all(10.0),
         child: new ListView.builder(
           itemCount: viewModel.products.length,
           itemBuilder: (BuildContext context, int index) {
             var product = viewModel.products[index];
 
-            return new Column(
+            return new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Text(product.name),
+                new Expanded(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      new Container(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: new Text(
+                          product.name,
+                          style: new TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      new Text(
+                        'Código: ${product.code}',
+                        style: new TextStyle(
+                          color: Colors.grey[500],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Icon(
+                  Icons.star,
+                  color: Colors.red[500],
+                ),
                 new Text(product.quantity.toString()),
                 new Divider(
-                  height: 1.0,
-                  color: Colors.black,
-                ),
+                  height: 50.0,
+                )
               ],
             );
           },
