@@ -69,10 +69,35 @@ class _ProductFormState extends State<ProductForm> {
       onPressed: _submit,
       child: new Text("Salvar"),
     );
-    var loginForm = new Column(
+    var loginForm = _buildLoginForm(loginBtn);
+
+    return new Scaffold(
+      appBar: new AppBar(),
+      key: scaffoldKey,
+      body: new Container(
+        child: new Center(
+          child: new ClipRect(
+            child: new BackdropFilter(
+              filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              child: new Container(
+                child: loginForm,
+                height: 400.0,
+                width: 300.0,
+                decoration: new BoxDecoration(
+                    color: Colors.grey.shade200.withOpacity(0.2)),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column _buildLoginForm(RaisedButton loginBtn) {
+    return new Column(
       children: <Widget>[
         new Text(
-          "Signup App",
+          "Novo produto",
           textScaleFactor: 2.0,
         ),
         new Form(
@@ -112,27 +137,6 @@ class _ProductFormState extends State<ProductForm> {
         _isLoading ? new CircularProgressIndicator() : loginBtn
       ],
       crossAxisAlignment: CrossAxisAlignment.center,
-    );
-
-    return new Scaffold(
-      appBar: new AppBar(),
-      key: scaffoldKey,
-      body: new Container(
-        child: new Center(
-          child: new ClipRect(
-            child: new BackdropFilter(
-              filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: new Container(
-                child: loginForm,
-                height: 400.0,
-                width: 300.0,
-                decoration: new BoxDecoration(
-                    color: Colors.grey.shade200.withOpacity(0.2)),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

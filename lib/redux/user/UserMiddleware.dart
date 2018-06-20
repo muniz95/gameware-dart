@@ -22,7 +22,7 @@ class UserMiddleware extends MiddlewareClass<AppState> {
     // }
 
     if(action is UserLoginAction) {
-      List<Product> products = await db.getProducts();
+      List<Product> products = await db.getProductsByUser(action.user.id);
       next(new LoadProductList(products));
     }
 
