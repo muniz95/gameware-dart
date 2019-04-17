@@ -1,44 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:gameware/redux/app/AppState.dart';
-import 'package:gameware/redux/common_actions.dart';
-import 'package:gameware/redux/store.dart';
-import 'package:redux/redux.dart';
+import 'package:flutter/services.dart';
+import 'package:gameware/bloc/login_bloc.dart';
+import 'package:gameware/bloc/provider.dart';
 import 'package:gameware/routes.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:gameware/screens/login_screen.dart';
 
-Future<Null> main() async {
-  var store = await createStore();
-  runApp(new GamewareApp(store));
-}
+void main() => runApp(MyApp());
 
-class GamewareApp extends StatefulWidget {
-  GamewareApp(this.store);
-  final Store<AppState> store;
-
-  @override
-  State<StatefulWidget> createState() => new _GamewareAppState();
-
-}
-
-class _GamewareAppState extends State<GamewareApp> {
-  @override
-  void initState() {
-    super.initState();
-    widget.store.dispatch(new InitAction());
-  }
-
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
+  final _mainColor = {
+    50:Color.fromRGBO(178, 180, 178, .1),
+    100:Color.fromRGBO(178, 180, 178, .2),
+    200:Color.fromRGBO(178, 180, 178, .3),
+    300:Color.fromRGBO(178, 180, 178, .4),
+    400:Color.fromRGBO(178, 180, 178, .5),
+    500:Color.fromRGBO(178, 180, 178, .6),
+    600:Color.fromRGBO(178, 180, 178, .7),
+    700:Color.fromRGBO(178, 180, 178, .8),
+    800:Color.fromRGBO(178, 180, 178, .9),
+    900:Color.fromRGBO(178, 180, 178, 1),
+  };
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider<AppState>(
-      store: widget.store,
-      child: new MaterialApp(
-        title: 'Gameware',
-        theme: new ThemeData(
-          primaryColor: const Color(0XFF4F43AE),
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Color(0XFFB2B4B2), //or set color with: Color(0xFF0000FF)
+    ));
+    return BlocProvider(
+      bloc: LoginBloc(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: MaterialColor(0XFFB2B4B2, _mainColor),
         ),
+        home: LoginScreen(),
         routes: routes,
+        debugShowCheckedModeBanner: false,
       )
     );
   }

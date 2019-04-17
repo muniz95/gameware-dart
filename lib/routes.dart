@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:gameware/views/main/MainPage.dart';
-import 'package:gameware/views/login/LoginPage.dart';
-import 'package:gameware/views/signup/SignupPage.dart';
+import 'package:gameware/screens/login_screen.dart';
+import 'package:gameware/screens/main_screen.dart';
 
 final routes = {
-  '/signup': (BuildContext ctx) => new SignupPage(),
-  '/login': (BuildContext ctx) => new LoginPage(),
-  '/home': (BuildContext ctx) => new MainPage(),
-  '/': (BuildContext ctx) => new LoginPage(),
+  '/login': (BuildContext ctx) => new LoginScreen(),
+  '/home': (BuildContext ctx) => new MainScreen(),
 };
