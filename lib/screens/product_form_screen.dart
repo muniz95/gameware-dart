@@ -21,7 +21,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   String _name, _code;
   int _quantity;
-  ProductCategory _category;
+  String _category;
   ProductBloc _productBloc = new ProductBloc();
 
   _ProductFormScreenState();

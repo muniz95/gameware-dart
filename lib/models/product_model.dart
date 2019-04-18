@@ -11,7 +11,7 @@ class Product {
   
   final String name;
   final int quantity;
-  final ProductCategory category;
+  final String category;
   final String code;
   final User user;
 
@@ -40,11 +40,4 @@ class Product {
 
     return map;
   }
-}
-
-enum ProductCategory {
-  console,
-  joystick,
-  cable,
-  game,
 }

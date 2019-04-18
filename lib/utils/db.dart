@@ -59,12 +59,11 @@ class DatabaseHelper {
       name: 'Playstation',
       quantity: 5,
       code: 'PS1',
-      category: ProductCategory.console,
+      category: "Console",
       user: admin,
     );
 
     await saveUser(admin);
-    await new Future.delayed(new Duration(seconds: 5));
     await saveProduct(product);
   }
 
@@ -84,20 +83,6 @@ class DatabaseHelper {
     var dbClient = await db;
     int res = await dbClient.delete("User");
     return res;
-  }
-
-  Future<List<Product>> getProducts() async {
-    var dbClient = await db;
-    List<Product> products = new List<Product>();
-    List<Map> productRaw = await dbClient.query("Product");
-    
-    if (productRaw.length > 0) {
-      productRaw.forEach((product) {
-        products.add(new Product.map(product));
-      });
-    }
-
-    return products;
   }
 
   Future<List<Product>> getProductsByUser(int userId) async {
